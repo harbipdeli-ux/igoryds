@@ -436,3 +436,105 @@ p{line-height:1.65; color:var(--ink-soft); margin:0 0 16px;}
 @media (max-width:600px){
   .clip-grid{grid-template-columns:1fr;}
 }
+/* ---------- Mini Oyunlar (Arcade) ---------- */
+.arcade-box {
+  max-width: 440px;
+  margin: 32px auto 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+}
+
+.arcade-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.arcade-tab {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.arcade-tab:hover {
+  color: var(--ink);
+  border-color: var(--kick);
+}
+
+.arcade-tab.active {
+  background: var(--kick);
+  color: #08130A;
+  border-color: var(--kick);
+}
+
+.arcade-screen {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  background: #0D0F12;
+}
+
+.arcade-score {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--kick);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+#arcadeCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0D0F12;
+}
+
+.arcade-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 15, 18, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+  padding: 20px;
+}
+
+#overlayText {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--ink);
+  margin: 0;
+}
+
+.arcade-controls-hint {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
