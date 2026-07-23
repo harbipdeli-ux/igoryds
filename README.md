@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/30310558/README.md)
 # igorYDS — Yayıncı Tanıtım Sitesi
 
 Koyu temalı, oyuncu/yayıncı tanıtım sitesi. Kick ve TikTok profillerini,
