@@ -52,3 +52,71 @@ oynadığın oyunları ve TikTok kliplerini gösterir.
 
 Dosyalarında değişiklik yapıp tekrar **Commit changes** dedikçe site
 birkaç dakika içinde otomatik güncellenir.
+
+---
+
+## Yılan oyunu liderlik tablosunu aktif etme (opsiyonel ama önerilir)
+
+Sitede bir Yılan (Snake) oyunu var. Oyun Firebase kurulmadan da düzgün
+çalışır, ama liderlik tablosu boş kalır ve skorlar kaydedilmez.
+Herkesin birbirinin skorunu görebildiği gerçek bir liderlik tablosu için
+ücretsiz bir Google Firebase veritabanı kurman gerekiyor. 5 dakika sürer,
+kredi kartı istemez.
+
+### 1. Firebase projesi oluştur
+1. [console.firebase.google.com](https://console.firebase.google.com) adresine git, Google hesabınla giriş yap.
+2. **"Proje ekle"** (Add project) butonuna bas.
+3. Bir proje adı yaz (örn. `igoryds-oyun`), **Devam**'a bas.
+4. Google Analytics sorulursa **kapatabilirsin** (gerekmiyor), **Proje oluştur**'a bas.
+
+### 2. Realtime Database'i aç
+1. Sol menüden **Build → Realtime Database**'e tıkla.
+2. **"Veritabanı oluştur"** butonuna bas.
+3. Herhangi bir konum seç, devam et.
+4. Güvenlik kuralları sorulduğunda **"Test modunda başlat"** seç (bu, herkesin
+   okuyup yazabilmesi anlamına gelir — küçük bir kişisel liderlik tablosu için
+   sorun değil, ama teoride biri kötüye kullanabilir; canlıya aldıktan sonra
+   sorun yaşarsan aşağıdaki "kuralları sıkılaştırma" notuna bak).
+
+### 3. Web uygulaması bilgilerini al
+1. Sol üstteki ⚙️ **Proje ayarları**'na tıkla.
+2. **Genel** sekmesinde aşağı in, **"Uygulamalarınız"** kısmında **`</>`** (Web) simgesine tıkla.
+3. Bir takma ad yaz (örn. `igoryds-site`), **"Uygulamayı kaydet"**'e bas.
+4. Karşına çıkan `firebaseConfig = { ... }` bloğunu **tamamen kopyala**.
+
+### 4. Bilgileri script.js'e yapıştır
+`script.js` dosyasını aç, en üstlerde şunu bulacaksın:
+```js
+const firebaseConfig = {
+  apiKey: "BURAYA_KENDI_APIKEY_DEGERINI_YAPISTIR",
+  authDomain: "BURAYA_YAPISTIR",
+  databaseURL: "BURAYA_YAPISTIR",
+  projectId: "BURAYA_YAPISTIR",
+  storageBucket: "BURAYA_YAPISTIR",
+  messagingSenderId: "BURAYA_YAPISTIR",
+  appId: "BURAYA_YAPISTIR"
+};
+```
+Bu bloğun tamamını, Firebase'den kopyaladığın gerçek `firebaseConfig` bloğuyla
+değiştir. Sonra dosyayı kaydet, GitHub'a tekrar yükle (üzerine yaz).
+
+### 5. Kontrol et
+Siteni aç, Yılan'ı oyna, öl, adını yaz, "Skoru Kaydet"e bas. Sayfayı
+yenilediğinde skorun liderlik tablosunda görünüyorsa çalışıyor demektir.
+
+### Kuralları sıkılaştırma (opsiyonel, ileride)
+"Test modu" 30 gün sonra otomatik olarak herkese kapanır. Süresiz açık
+kalması için Realtime Database sayfasında **Rules** sekmesine gidip
+şunu yapıştırabilirsin:
+```json
+{
+  "rules": {
+    "leaderboard": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
+```
+Bu, sadece `leaderboard` verisini herkese açık bırakır, projenin geri
+kalanına erişimi kapatır.
